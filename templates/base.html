@@ -1,0 +1,19 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>File Upload - Django</title>
+    <meta name="description" content="upload file with django framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'stylesheets/styles.css' %}">
+</head>
+<body>
+    {% include 'nav.html' %}
+    {% block content %}
+    {% endblock %}
+
+    <script src="{% static 'javascripts/upload.js' %}"></script>
+</body>
+</html>

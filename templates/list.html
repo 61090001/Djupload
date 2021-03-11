@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>List of files</h2>
+{% csrf_token %}
+<ul>
+{% for file in files %}
+    <li><b>{{file.file_name}}</b> (<i>{{file.file_type}}</i>) <a href="{% url 'download' file.id %}" target="_blank" rel="noopener noreferrer">Download</a><button onclick="deleteFile(this,{{file.id}});">Delete</button></li>
+{% endfor %}
+</ul>
+{% if prev %}
+<a href="{% url 'list' page|add:-1 %}">Prev</a>
+{% endif %}
+{% if next %}
+<a href="{% url 'list' page|add:1 %}">Next</a>
+{% endif %}
+{% endblock %}
