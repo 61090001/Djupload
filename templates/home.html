@@ -1,19 +1,72 @@
 {% extends "base.html" %}
-
 {% block content %}
-<h2>Upload a file</h2>
-<form id="uploadform" enctype="multipart/form-data" method="post">
+{% include 'nav.html' %}
+{% if not user.is_authenticated %}
+<div class="px-4 py-5 my-5 text-center">
+  <img class="d-block mx-auto mb-4" src="https://upload.wikimedia.org/wikipedia/commons/7/75/Django_logo.svg" alt="The Web framework for perfectionists">
+  <h1 class="display-5 fw-bold">Djupload</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Quickly and securely upload your files to a <a href="https://docs.aws.amazon.com/s3/index.html">S3</a> compliant object storage server through your browser. Generate an unique, secure and shareable link to download the file with expiring date.</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a href="{% url 'login' %}" class="btn btn-primary btn-lg px-4 me-sm-3">Sign in</a>
+    </div>
+  </div>
+</div>
+{% else %}
+<main class="container">
+  <form id="uploadform" enctype="multipart/form-data" method="POST">
     {% csrf_token %}
-    <div class="row">
-        <label for="fileToUpload">Select a File to Upload</label><br />
-        <input type="file" name="fileToUpload" class="inputFile" id="fileToUpload" onchange="fileSelected()" />
+    <div class="px-4 py-5 my-5">
+      <div class="row">
+        <div class="col-md-12 col-lg-12">
+          <h4 class="mb-3">File Input</h4>
+          <div class="row">
+            <div class="col-sm-6">
+              <label for="filename" class="form-label">Filename</label>
+              <input type="text" class="form-control" id="filename" placeholder="Filename" maxlength="64" required disabled>
+            </div>
+  
+            <div class="col-sm-6">
+              <label for="formFile" class="form-label">Select file to upload</label>
+              <input class="form-control" type="file" id="formFile" required>
+              <small class="text-muted">Max file size: 25MB</small>
+              <br />
+              <small class="text-muted" id="filedetailtype"></small>
+              <br />
+              <small class="text-success" id="filedetailsize"></small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="row d-none" id="toggle-progress-bar">
+        <div class="col-md-12 col-lg-12">
+          <div class="progress">
+            <div class="progress-bar" id="progressbar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="row d-none" id="toggle-secret-link">
+        <div class="col-md-12 col-lg-12">
+          <h4 class="mb-3">Secret Link</h4>
+          <a href="#" id="secret-link" rel="noopener noreferrer" target="_blank"></a>
+        </div>
+      </div>
+
+      <hr class="my-4">
+
+      <div class="row">
+        <div class="col-md-2 col-lg-2">
+          <button class="w-100 btn btn-primary btn-lg" id="upload-btn" type="submit" disabled>Upload</button>
+        </div>
+      </div>
     </div>
-    <div id="fileName"></div>
-    <div id="fileSize"></div>
-    <div id="fileType"></div>
-    <div class="row">
-        <input type="button" onclick="uploadFile()" value="Upload" />
-    </div>
-    <div id="progressNumber"></div>
-</form>
+  </form>
+</main>
+{% endif %}
 {% endblock %}

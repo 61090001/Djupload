@@ -6,14 +6,20 @@
     <title>File Upload - Django</title>
     <meta name="description" content="upload file with django framework">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'stylesheets/styles.css' %}">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    {% if nav == "home" %}
+    <link href="{% static 'stylesheets/header.css' %}" rel="stylesheet">
+    {% else %}
+    <link href="{% static 'stylesheets/signin.css' %}" rel="stylesheet">
+    {% endif %}
 </head>
 <body>
-    {% include 'nav.html' %}
     {% block content %}
     {% endblock %}
 
-    <script src="{% static 'javascripts/upload.js' %}"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+    {% if user.is_authenticated %}<script src="{% static 'javascripts/upload.js' %}"></script>{% endif %}
 </body>
 </html>

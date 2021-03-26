@@ -1,12 +1,25 @@
-<header>
-    <div class="logo">
-        <a href="{% url 'home' %}"><h1>Djupload</h1></a>
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li><a href="{% url 'home' %}" class="navbar-brand px-2 text-light" title="Homepage">Djupload</a></li>
+            </ul>
+            
+            <div class="text-end">
+                {% if user.is_authenticated %}
+                <div class="dropdown text-end">
+                    <a href="#" class="d-block text-light text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
+                      {{user.get_username}}
+                    </a>
+                    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser">
+                        <a class="dropdown-item" href="/admin">Manage</a>
+                        <a class="dropdown-item" href="{% url 'logout' %}">Log out</a>
+                    </ul>
+                  </div>
+                {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    <nav>
-        <ul class="nav_links">
-            <li><a class="{% if nav == 'home' %}active{% endif %}" href="{% url 'home' %}">Home</a></li>
-            <li><a class="{% if nav == 'list' %}active{% endif %}" href="{% url 'list' 1 %}">All files</a></li>
-        </ul>
-    </nav>
-    <a href="#"><button>About</button></a>
 </header>
